@@ -2,8 +2,8 @@
 
 A URL shortening service.
 
-Backend RESTful API:
+Backend RESTful API:<br>
 Written in Java 17 using Spring Boot 3+, MySQL w/ Hibernate, Spring Security.
 
-Frontend:
+Frontend:<br>
 Written in Node JS 18+ using React.
