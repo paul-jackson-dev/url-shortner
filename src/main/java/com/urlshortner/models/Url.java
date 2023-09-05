@@ -35,26 +35,45 @@ public class Url {
         this.longUrl = longUrl;
     }
 
+    public String getTopLevelDomain() {
+        return topLevelDomain;
+    }
+
     public String getShortUrl() {
         return shortUrl;
     }
 
+    // this method is basically a counter. there is probably a more simple way to write it.
     public void setShortUrl(String lastShortUrl) {
         String characters = "abcdefghijklmnopqrstuvxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
-        if (lastShortUrl == null){
-            this.shortUrl = characters.substring(0,1); // "a"
+//        String characters = "abc" + "9"; //TODO remove after testing
+        if (lastShortUrl == null) {
+            this.shortUrl = characters.substring(0, 1); // "a"
+            return;
         }
 
-        else if (lastShortUrl.endsWith("9")){ // if characters are exhausted, start again
-            this.shortUrl = lastShortUrl + characters.substring(0,1); // "a9" + "a"
-        }
+        int length = lastShortUrl.length();
 
-        else{
-            int length = lastShortUrl.length();
-            String lastChar = lastShortUrl.substring(length-1);
+        if(lastShortUrl.startsWith("9") && lastShortUrl.endsWith("9")){
+            lastShortUrl = "";
+            for(int i = 0 ; i < length +1; i++) {
+                lastShortUrl += characters.substring(0, 1); // "99" becomes "aaa"
+            }
+            this.shortUrl = lastShortUrl;
+        }
+        else if (lastShortUrl.endsWith("9")){
+            int indexOfNine = lastShortUrl.indexOf("9");
+            lastShortUrl = lastShortUrl.replaceAll("9",characters.substring(0, 1));
+            String lastChar = lastShortUrl.substring(indexOfNine -1, indexOfNine);
             int lastCharIndex = characters.indexOf(lastChar);
-            String nextChar = characters.substring(lastCharIndex +1, lastCharIndex +2);
-            this.shortUrl = lastShortUrl.substring(0,length -1) + nextChar; // remove the last character and replace it with the next character
+            String nextChar = characters.substring(lastCharIndex + 1, lastCharIndex + 2);
+            this.shortUrl = lastShortUrl.substring(0,indexOfNine -1) + nextChar + lastShortUrl.substring(indexOfNine); // "aa9" becomes "aba"
+        }
+        else {
+            String lastChar = lastShortUrl.substring(length - 1);
+            int lastCharIndex = characters.indexOf(lastChar);
+            String nextChar = characters.substring(lastCharIndex + 1, lastCharIndex + 2);
+            this.shortUrl = lastShortUrl.substring(0, length - 1) + nextChar; // "aaa" becomes "aab"
         }
     }
 }

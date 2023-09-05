@@ -15,8 +15,21 @@ public class ControllerServices {
 
     public String getLastShortUrl(){
         Optional<Url> urlResult = urlRepository.findFirstByOrderByIdDesc();
+        return urlResult.map(Url::getShortUrl).orElse(null); //suggested by intellij, stream map
+    }
+
+    public String getRedirectUrl(String shortUrl){
+        Optional<Url> urlResult = urlRepository.findByShortUrl(shortUrl);
         if (urlResult.isPresent()){
-            return urlResult.get().getShortUrl();
+            return urlResult.get().getLongUrl();
+        }
+        return null;
+    }
+
+    public Url getLastUrl(){
+        Optional<Url> urlResult = urlRepository.findFirstByOrderByIdDesc();
+        if (urlResult.isPresent()){
+            return urlResult.get();
         }
         return null;
     }

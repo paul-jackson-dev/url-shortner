@@ -4,9 +4,7 @@ import com.urlshortner.models.Url;
 import com.urlshortner.repositories.UrlRepository;
 import com.urlshortner.services.ControllerServices;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("")
@@ -16,10 +14,24 @@ public class HomeController {
     ControllerServices controllerServices;
 
     @GetMapping()
+    @ResponseBody
     public String displayIndex(){
-        Url url = new Url("http://longurl.com");
+        Url url = controllerServices.getLastUrl();
+        return url.getTopLevelDomain() + url.getShortUrl();
+    }
+
+    @GetMapping("/add") //change this to post once react is up
+    @ResponseBody
+    public String processLongUrl(@RequestParam String longUrl){
+        Url url = new Url(longUrl);
         url.setShortUrl(controllerServices.getLastShortUrl());
         controllerServices.urlRepository.save(url);
-        return url.getShortUrl() + "         " + url.getLongUrl();
+        return url.getTopLevelDomain() + url.getShortUrl();
+    }
+
+    @GetMapping("/{shortUrl}")
+    @ResponseBody
+    public String returnRedirectUrl(@PathVariable String shortUrl){
+        return controllerServices.getRedirectUrl(shortUrl);
     }
 }
