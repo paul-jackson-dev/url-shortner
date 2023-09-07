@@ -1,13 +1,13 @@
 package com.urlshortner.controllers;
 
 import com.urlshortner.models.Url;
-import com.urlshortner.repositories.UrlRepository;
 import com.urlshortner.services.ControllerServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("")
+@RequestMapping("/api/")
 public class HomeController {
 
     @Autowired
@@ -15,9 +15,10 @@ public class HomeController {
 
     @GetMapping()
     @ResponseBody
-    public String displayIndex(){
+    public ResponseEntity<?> displayIndex(){
         Url url = controllerServices.getLastUrl();
-        return url.getTopLevelDomain() + url.getShortUrl();
+        String resource = url.getTopLevelDomain() + url.getShortUrl();
+        return ResponseEntity.ok(resource);
     }
 
     @GetMapping("/add") //change this to post once react is up
@@ -30,8 +31,9 @@ public class HomeController {
     }
 
     @GetMapping("/{shortUrl}")
-    @ResponseBody
-    public String returnRedirectUrl(@PathVariable String shortUrl){
-        return controllerServices.getRedirectUrl(shortUrl);
+//    @ResponseBody
+    public ResponseEntity<?> returnRedirectUrl(@PathVariable String shortUrl){
+        String resource = controllerServices.getRedirectUrl(shortUrl);
+        return ResponseEntity.ok(resource);
     }
 }
