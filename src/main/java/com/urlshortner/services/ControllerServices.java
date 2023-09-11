@@ -5,6 +5,7 @@ import com.urlshortner.repositories.UrlRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,6 +31,17 @@ public class ControllerServices {
         Optional<Url> urlResult = urlRepository.findFirstByOrderByIdDesc();
         if (urlResult.isPresent()){
             return urlResult.get();
+        }
+        return null;
+    }
+
+    public List <Url> getAllUrls(){
+        List<Url> Urls = urlRepository.findAll();
+        if (!Urls.isEmpty()){
+            for (Url url : Urls){
+                System.out.println(url.getShortUrl());
+            }
+            return Urls;
         }
         return null;
     }
