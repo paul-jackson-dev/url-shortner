@@ -1,12 +1,12 @@
-import axios from 'axios';
+import api from "../api/BaseUrlConfig.js";
 
-const SHORTURL_API_BASE_URL = "http://localhost:8080/api/";
+// const SHORTURL_API_BASE_URL = "http://localhost:8080/api/";
 
 class ShortUrlService{
 
 
     getShortUrl(){
-        return axios.get(SHORTURL_API_BASE_URL);
+        return api.get();
     }
 
 }
