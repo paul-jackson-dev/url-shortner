@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom' //Switch
 import ShortUrlComponent from './components/ShortUrlComponent';
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
+import AddUrlComponent from './components/AddUrlComponent';
 
 function App() { // App.js is the root component for React
   return (
@@ -12,9 +13,10 @@ function App() { // App.js is the root component for React
         <HeaderComponent />
           <div className="container">
             <Routes>
-              <Route path = "/" element = {<ShortUrlComponent />}></Route>
+              <Route path = "/" exact element = {<ShortUrlComponent />}></Route>
+              <Route path = "/" element = {<AddUrlComponent />}></Route>
+              <Route path = "/shorten-url" element = {<AddUrlComponent />}></Route>
               <Route path = "/React" element = {<ShortUrlComponent />}></Route>
-              {/* <ShortUrlComponent /> */}
             </Routes>
           </div>
         <FooterComponent />

@@ -22,4 +22,4 @@ class HeaderComponent extends Component {
     }
 }
 
-export default HeaderComponent;
+export default HeaderComponent;  

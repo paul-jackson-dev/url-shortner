@@ -1,5 +1,6 @@
 package com.urlshortner.controllers;
 
+import com.urlshortner.models.AddUrlDTO;
 import com.urlshortner.models.Url;
 import com.urlshortner.services.ControllerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +29,13 @@ public class HomeController {
         return ResponseEntity.ok(urls);
     }
 
-    @GetMapping("/add") //change this to post once react is up
-//    @ResponseBody
-    public String processLongUrl(@RequestParam String longUrl){
-        Url url = new Url(longUrl);
+    @PostMapping("/add")
+    public ResponseEntity<?> processLongUrl(@RequestBody AddUrlDTO addUrlDTO){
+        Url url = new Url(addUrlDTO.getLongUrl());
         url.setShortUrl(controllerServices.getLastShortUrl());
         controllerServices.urlRepository.save(url);
-        return url.getTopLevelDomain() + url.getShortUrl();
+//        return url.getTopLevelDomain() + url.getShortUrl();
+        return ResponseEntity.ok().build(); // send 200, maybe change this to return the Url details
     }
 
     @GetMapping("/{shortUrl}")

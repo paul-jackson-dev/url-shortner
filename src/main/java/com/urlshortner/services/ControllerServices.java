@@ -38,9 +38,6 @@ public class ControllerServices {
     public List <Url> getAllUrls(){
         List<Url> Urls = urlRepository.findAll();
         if (!Urls.isEmpty()){
-            for (Url url : Urls){
-                System.out.println(url.getShortUrl());
-            }
             return Urls;
         }
         return null;
