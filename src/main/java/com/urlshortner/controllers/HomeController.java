@@ -17,7 +17,7 @@ public class HomeController {
     @Autowired
     ControllerServices controllerServices;
 
-    @GetMapping()
+    @GetMapping("shorturls")
 //    @ResponseBody
     public ResponseEntity<?> displayIndex(){
 //        Url url = controllerServices.getLastUrl();
@@ -26,12 +26,16 @@ public class HomeController {
         if (urls == null){
             return ResponseEntity.notFound().build();
         }
+        System.out.println(urls);
         return ResponseEntity.ok(urls);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> processLongUrl(@RequestBody AddUrlDTO addUrlDTO){
-        Url url = new Url(addUrlDTO.getLongUrl());
+//    public ResponseEntity<?> processLongUrl(@RequestBody AddUrlDTO addUrlDTO){
+    public ResponseEntity<?> processLongUrl(@RequestBody String text){
+//        Url url = new Url(addUrlDTO.getLongUrl());
+        System.out.println(text);
+        Url url = new Url(text);
         url.setShortUrl(controllerServices.getLastShortUrl());
         controllerServices.urlRepository.save(url);
 //        return url.getTopLevelDomain() + url.getShortUrl();
