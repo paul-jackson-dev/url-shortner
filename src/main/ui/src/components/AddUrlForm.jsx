@@ -3,24 +3,39 @@ import { useState } from "react";
 
 function AddUrlForm(){
 
-    const [text, setText] = useState('')
+    const [longUrl, setLongUrl] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [urlInformation, setUrlInformation] = useState([])
+
+    const addUrlFormDTO = {
+        longUrl: longUrl,
+        user: null
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("consoleingasdfd" + text);
-        const result = await api.post('add', text)
+        setLoading(true)
+        const result = await api.post('add', addUrlFormDTO)
+        setLoading(false)
+        setUrlInformation(result.data)
         console.log(result.data)
     }
 
     return (
-        <div>
+        <div className="form">
             <form onSubmit={handleSubmit}>
-                <label>
-                    Shorten a Url
-                </label>
-                <input type="text" id="text" value={text} onChange={e => setText(e.target.value)}></input>
-                <button type="submit">Make It Short</button>
+                <input type="text" id="text" placeholder="Shorten a Url" value={longUrl} onChange={e => setLongUrl(e.target.value)}></input>
+                <button type="submit" className="form button">&nbsp;Make It Short&nbsp;</button>
             </form>
+            <div>
+                {loading && "Loading..."}
+            </div>
+            {urlInformation.length === 0 ? "" 
+            :
+            <div key={urlInformation.id}>
+                <p>Short Url: {urlInformation.shortUrl}</p>
+            </div>}
+        
         </div>
     )
 

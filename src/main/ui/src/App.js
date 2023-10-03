@@ -12,11 +12,15 @@ function App() { // App.js is the root component for React
     <div>
       <Router>
         <HeaderComponent />
-          <div className="container">
+          <div className="container d-flex justify-content-center">
             <Routes>
-
-              {/* <Route path = "/" exact element = {<ShowShortUrls />}></Route> */}
-              <Route path = "/" exact element = {<AddUrlForm />}></Route>
+              <Route path = "/" element = {
+                <div>
+                  <AddUrlForm />
+                </div>}>
+              </Route>
+              <Route path = "/-/show" element = {<ShowShortUrls />}></Route>
+        
               {/* <Route path = "/" element = {<AddUrlComponent />}></Route>
               <Route path = "/shorten-url" element = {<AddUrlComponent />}></Route> */}
               {/* <Route path = "/React" element = {<ShortUrlComponent />}></Route> */}

@@ -10,10 +10,10 @@ class HeaderComponent extends Component {
         return (
             <div>
                 <header>
-                    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+                    <nav className="nav justify-content-center navbar navbar-expand-md navbar-dark bg-dark">
                         <div>
                             <a href="http://localhost:8080/" className="navbar-brand">&nbsp;&nbsp; Make it Short Please</a>
-                            </div>
+                        </div>
                     </nav>
                 </header>
                 

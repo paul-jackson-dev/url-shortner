@@ -37,7 +37,8 @@ function ShowShortUrls(){
 
             shortUrls.map( (shortUrl) => (
                 <div key={shortUrl.id}>
-                    <h5>{shortUrl.shortUrl}</h5>
+                    {console.log(shortUrl.longUrl)}
+                    <h5><a href={shortUrl.longUrl}>{"http://localhost:8080/"+ shortUrl.shortUrl}</a></h5>
                 </div>
             ))}
         </div>
