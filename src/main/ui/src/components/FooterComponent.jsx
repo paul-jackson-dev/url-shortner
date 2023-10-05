@@ -10,7 +10,8 @@ class FooterComponent extends Component {
         return (
             <div>
                 <footer className="footer">
-                    <span className = "text-muted">$$$</span>
+                    <span className = "text-muted">
+                        <a href="https://github.com/paul-jackson-dev" className='text-muted' idName="footerlink">$$$</a></span>
                 </footer>   
             </div>
         );

@@ -22,21 +22,27 @@ function AddUrlForm(){
     }
 
     return (
-        <div className="form">
-            <form onSubmit={handleSubmit}>
-                <input type="text" id="text" placeholder="Shorten a Url" value={longUrl} onChange={e => setLongUrl(e.target.value)}></input>
-                <button type="submit" className="form button">&nbsp;Make It Short&nbsp;</button>
-            </form>
-            <div>
-                {loading && "Loading..."}
+        <section id="urlbox">
+            <h1>Paste the URL to be shortened</h1>
+            <div className="form" idName="formurl">
+                <form onSubmit={handleSubmit}>
+                    <input type="text" id="text" placeholder="Shorten a Url" value={longUrl} onChange={e => setLongUrl(e.target.value)}></input>
+                    <button type="submit" className="btn btn-dark">Make It Short Please</button>
+                </form>
+                <br></br>
+                <p className="boxtextcenter">
+                Make It Short is a free tool to generate short links and track clicks.
+                </p>
+                <div>
+                    {loading && "Loading..."}
+                </div>
+                {urlInformation.length === 0 ? "" 
+                :
+                <div key={urlInformation.id}>
+                    <p>Short Url: {urlInformation.topLevelDomain + urlInformation.shortUrl}</p>
+                </div>}
             </div>
-            {urlInformation.length === 0 ? "" 
-            :
-            <div key={urlInformation.id}>
-                <p>Short Url: {urlInformation.shortUrl}</p>
-            </div>}
-        
-        </div>
+        </section>
     )
 
 }

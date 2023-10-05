@@ -12,7 +12,7 @@ class HeaderComponent extends Component {
                 <header>
                     <nav className="nav justify-content-center navbar navbar-expand-md navbar-dark bg-dark">
                         <div>
-                            <a href="http://localhost:8080/" className="navbar-brand">&nbsp;&nbsp; Make it Short Please</a>
+                            <a href="http://localhost:8080/" className="navbar-brand">Make It Short</a>
                         </div>
                     </nav>
                 </header>
