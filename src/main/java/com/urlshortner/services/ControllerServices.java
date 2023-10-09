@@ -27,6 +27,14 @@ public class ControllerServices {
         return null;
     }
 
+    public Url getUrl(String shortUrl){
+        Optional<Url> urlResult = urlRepository.findByShortUrl(shortUrl);
+        if (urlResult.isPresent()){
+            return urlResult.get();
+        }
+        return null;
+    }
+
     public Url getLastUrl(){
         Optional<Url> urlResult = urlRepository.findFirstByOrderByIdDesc();
         if (urlResult.isPresent()){

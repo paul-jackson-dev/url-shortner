@@ -5,6 +5,7 @@ public class AddUrlDTO {
     private String longUrl;
 
 //    User user; // eventually add a user
+    String user;
 
     public String getLongUrl() {
         return longUrl;
@@ -14,11 +15,11 @@ public class AddUrlDTO {
         this.longUrl = longUrl;
     }
 
-    //    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
 }

@@ -15,12 +15,15 @@ public class Url {
 
     private String shortUrl;
 
-    private String topLevelDomain = "http://localhost/";
+    private String topLevelDomain = "http://localhost:8080/";
+
+    private int clicks;
 
     public Url(){}
 
     public Url(String longUrl) {
         this.longUrl = longUrl;
+        this.clicks = 0; //set initial clicks to zero
     }
 
     public int getId() {
@@ -75,5 +78,13 @@ public class Url {
             String nextChar = characters.substring(lastCharIndex + 1, lastCharIndex + 2);
             this.shortUrl = lastShortUrl.substring(0, length - 1) + nextChar; // "aaa" becomes "aab"
         }
+    }
+
+    public int getClicks() {
+        return clicks;
+    }
+
+    public void addClick() {
+        this.clicks = this.clicks + 1;
     }
 }
