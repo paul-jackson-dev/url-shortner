@@ -1,6 +1,8 @@
 package com.urlshortner.controllers;
 
 import com.urlshortner.models.Url;
+import com.urlshortner.models.User;
+import com.urlshortner.repositories.UserRepository;
 import com.urlshortner.services.ControllerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +22,9 @@ public class HomeController {
     @Autowired
     ControllerServices controllerServices;
 
+    @Autowired
+    UserRepository userRepository;
+
 //    @GetMapping("/{shortUrl}")
 //    public ResponseEntity<?> returnRedirectUrl(@PathVariable String shortUrl) throws URISyntaxException {
 //        System.out.println(shortUrl);
@@ -36,4 +41,12 @@ public class HomeController {
     public String returnString(Principal principal){
         return "I've got your username, " + principal.getName();
     }
+
+//    @GetMapping("/--/createUser")
+//    public String createUser(){
+//        User user = new User("Paul", "greatdogsite@gmail.com", "555", "ROLE_USER");
+//        System.out.println(user);
+//        userRepository.save(user);
+//        return user.toString();
+//    }
 }
