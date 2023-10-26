@@ -6,6 +6,7 @@ import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
 import { AddUrlForm } from './components/AddUrlForm';
 import { ShowShortUrls } from './components/ShowShortUrls';
+import { Register } from './components/Register';
 
 function App() { // App.js is the root component for React
   return (
@@ -20,6 +21,7 @@ function App() { // App.js is the root component for React
                 </div>}>
               </Route>
               <Route path = "/-/show" element = {<ShowShortUrls />}></Route>
+              <Route path = "/-/register" element = {<Register />}></Route>
         
               {/* <Route path = "/" element = {<AddUrlComponent />}></Route>
               <Route path = "/shorten-url" element = {<AddUrlComponent />}></Route> */}

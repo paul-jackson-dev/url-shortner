@@ -39,6 +39,15 @@ public class HomeController {
 
     @GetMapping
     public String returnString(Principal principal){
+        System.out.println(principal);
+        if (principal != null) {
+            return "I've got your username, " + principal.getName();
+        }
+        return "Not signed in";
+    }
+
+    @GetMapping("/secure")
+    public String secure(Principal principal){
         return "I've got your username, " + principal.getName();
     }
 

@@ -1,9 +1,10 @@
 package com.urlshortner.models;
 
+import com.urlshortner.config.SecurityConfig;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 public class User {
@@ -20,14 +21,14 @@ public class User {
 
     private String roles; // comma separated list of roles "ROLE_USER,ROLE_ADMIN" default is "ROLE_USER"
 
-    private static final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private static final PasswordEncoder passwordEncoder = SecurityConfig.passwordEncoder();
 
     public User(){}
 
     public User(String username, String email, String password, String roles) {
         this.username = username;
         this.email = email;
-        this.passwordHash = passwordEncoder.encode(password);
+        this.passwordHash = "{bcrypt}" + passwordEncoder.encode(password); // {bcrypt} helps the Security Config PasswordEncoder identify the hash
         this.roles = roles;
     }
 
@@ -51,12 +52,16 @@ public class User {
         this.email = email;
     }
 
-    public String getPasswordHash() {
+    public Boolean isPasswordMatching(String password){
+        return passwordEncoder.matches(password,passwordHash); // can't use .equals because of salting
+    }
+
+    public String getPassword() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String password) {
-        this.passwordHash = passwordEncoder.encode(password);
+    public void setPassword(String password) {
+        this.passwordHash = "{bcrypt}" + passwordEncoder.encode(password);
     }
 
     public String getRoles() {

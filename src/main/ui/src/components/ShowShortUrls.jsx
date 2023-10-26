@@ -18,7 +18,8 @@ function ShowShortUrls(){
         try {
             const result = await api.get('shorturls')
             setShortUrls(result.data); // use state to set returned data
-         } catch (error){
+         } 
+         catch (error){
             setError(true);
          }
          setLoading(false)
