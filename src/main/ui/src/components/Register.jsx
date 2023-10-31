@@ -1,5 +1,10 @@
-import { useRef, useState, useEffect} from "react";
+import React, {Component} from 'react';
+import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { faCheck, faTimes }from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../css/Register.css'; // Import regular stylesheet
+
 
 // const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/; // example: Mar_k6
 const USER_REGEX = /^[A-z0-9-_]{3,23}$/; // example: mark_6
@@ -57,7 +62,7 @@ function Register(){
         event.preventDefault(); 
 
         // possibly prevent a javascript hack from enabling the submit button and submitting bad data
-        if (!USER_REGEX(user) || !PWD_REGEX(password)){
+        if (!USER_REGEX.test(user) || !PWD_REGEX.test(password)){
             setErrorMessage("Invalid Entry");
             return;
         }
@@ -87,6 +92,12 @@ function Register(){
                     {/* //htmlFor sets focus on username input when label is clicked */}
                     <label htmlFor="username">
                         Username:
+                        <span className={validUser ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faCheck} size="lg" style={{color: "#212529",}} />
+                        </span>
+                        <span className={!validUser && userFocus ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faTimes} size="lg" style={{color: "#212529",}} />
+                        </span>
                     </label>        
                     <input
                         type = "text"
@@ -106,6 +117,12 @@ function Register(){
 
                     <label htmlFor="password">
                         Password:
+                        <span className={validPassword ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faCheck} size="lg" style={{color: "#212529",}} />
+                        </span>
+                        <span className={!validPassword && password ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faTimes} size="lg" style={{color: "#212529",}} />
+                        </span>
                     </label>        
                     <input
                         type = "password"
@@ -123,6 +140,12 @@ function Register(){
 
                     <label htmlFor="verifyPassword">
                         Verify Password:
+                        <span className={validMatchPassword && validPassword ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faCheck} size="lg" style={{color: "#212529",}} />
+                        </span>
+                        <span className={!validMatchPassword && matchPassword ? "valid" : "hide"}>
+                        <FontAwesomeIcon icon={faTimes} size="lg" style={{color: "#212529",}} />
+                        </span>
                     </label>        
                     <input
                         type = "password"
@@ -135,7 +158,7 @@ function Register(){
                     <p className = {matchPasswordFocus && !validMatchPassword ? "instructions" : "hide"}>
                         Passwords do not match.
                     </p>
-                    <button disabled = {!validUser || !validPassword || !validMatchPassword ? true : false }>
+                    <button disabled = {!validUser || !validPassword || !validMatchPassword ? true : false } className={!validUser || !validPassword || !validMatchPassword ? "disabled" : "none"}>
                         Sign up
                     </button>
                     <p>Already registered? <br />
