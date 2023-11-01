@@ -50,13 +50,14 @@ form {
 } */
 
 input[type="text"],
+input[type="email"],
 input[type="password"],
 button,
 textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 22px;
   padding: 0.25rem;
-  border-radius: 0.5rem;
+  border-radius: 0.25rem;
 }
 
 label,
@@ -121,4 +122,9 @@ button {
 }
 h1 {
   margin: auto;
+  /* font-family: 'Nunito', sans-serif; */
+}
+
+.span-center{
+  margin:auto;
 }
