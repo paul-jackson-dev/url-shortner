@@ -105,6 +105,11 @@ button {
     margin-left: 0.25rem;
 }
 
+.validError {
+  margin-left: 0.25rem;
+  color: hotpink;
+}
+
 .invalid {
     margin-left: 0.25rem;
 }

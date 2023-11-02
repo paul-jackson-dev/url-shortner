@@ -14,7 +14,6 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/  // matches string@string.strin
 
 function Register(){
     const userRef = useRef(); // sets focus on user input when function loads
-    const errRef = useRef();
 
     // username
     const [user, setUser] = useState("");
@@ -76,18 +75,35 @@ function Register(){
         event.preventDefault(); 
 
         // possibly prevent a javascript hack from enabling the submit button and submitting bad data
-        if (!USER_REGEX.test(user) || !PWD_REGEX.test(password) || !EMAIL_REGEX.test(email)){
-            setErrorMessage("Invalid Entry");
-            return;
-        }
-
+        // if (!USER_REGEX.test(user) || !PWD_REGEX.test(password) || !EMAIL_REGEX.test(email)){
+        //     setErrorMessage("Invalid Entry");
+        //     return;
+        // }
+        console.log(registerDTO)
         setLoading(true)
-        const result = await api.post('register', registerDTO)
+        //send api post request and catch error if exists
+        try {
+            const result = await api.post('register', registerDTO)
+            console.log(result.data)
+            console.log(JSON.stringify(result)) // shows full response as string
+            setSuccess(true);
+            // clear state
+            // setUser("");
+            // setEmail("");
+            // setPassword("");
+            // setMatchingPassword("");
+        } catch (error){
+            if (!error?.response){ //optional chain, if no error response
+                setErrorMessage(["Server did not respond."])
+            } else if (error.response?.status === 409){
+                setErrorMessage(["Username taken."])
+            } else {
+                let defaultError = error.response.data[0].defaultMessage;
+                console.log(error.response.data)
+                setErrorMessage(defaultError)
+            }
+        }
         setLoading(false)
-        console.log(result.data)
-
-        setSuccess(true);
-
     }
     
     return(
@@ -105,8 +121,7 @@ function Register(){
 
         ) : (
             <section>
-                {/* <p ref={errRef}>{errMessage}</p> */}
-                <p ref={errRef} className={errorMessage ? "valid" : "hide"}>error</p>
+                <p className={errorMessage ? "validError" : "hide"}>{errorMessage}</p>
                 <h1>Registration</h1>
                 <span className={"span-center"}>
                     {loading && "Loading..."}
